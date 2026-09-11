@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Barber Blackywhite | Puerto de La Libertad</title>
+<meta name="theme-color" content="#050505">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top glass-nav">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+      <img src="assets/images/logo.png" class="nav-logo" alt="Barber Blackywhite">
+      <span>BLACK<span class="text-muted">Y</span>WHITE</span>
+    </a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#nav"><i class="bi bi-list fs-2"></i></button>
+    <div class="collapse navbar-collapse" id="nav">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+        <li class="nav-item"><a class="nav-link" href="#servicios">Servicios</a></li>
+        <li class="nav-item"><a class="nav-link" href="#galeria">Galería</a></li>
+        <li class="nav-item"><a class="nav-link" href="#nosotros">Nosotros</a></li>
+        <li class="nav-item"><a class="nav-link" href="#ubicacion">Ubicación</a></li>
+        <li class="nav-item"><a class="btn btn-light btn-sm ms-lg-2 px-3" href="#reservar">Reservar cita</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-grid"></div>
+  <div class="container position-relative">
+    <div class="row min-vh-100 align-items-center py-5">
+      <div class="col-lg-7">
+        <div class="eyebrow"><span></span> PUERTO DE LA LIBERTAD · EL SALVADOR</div>
+        <h1>Tu estilo.<br><em>Tu identidad.</em></h1>
+        <p class="hero-copy">Cortes clásicos, modernos y personalizados con diseño. Un nuevo estilo para una nueva versión de ti.</p>
+        <div class="d-flex flex-column flex-sm-row gap-3">
+          <a href="#reservar" class="btn btn-light btn-lg px-4">RESERVAR AHORA <i class="bi bi-arrow-right ms-2"></i></a>
+          <a href="https://wa.me/50378663583" target="_blank" class="btn btn-outline-light btn-lg px-4"><i class="bi bi-whatsapp me-2"></i>WHATSAPP</a>
+        </div>
+        <div class="hero-stats mt-5">
+          <div><strong>3.2K</strong><span>Seguidores</span></div>
+          <div><strong>125</strong><span>Publicaciones</span></div>
+          <div><strong>9</strong><span>Servicios</span></div>
+        </div>
+      </div>
+      <div class="col-lg-5 d-none d-lg-flex justify-content-center">
+        <div class="logo-orbit"><img src="assets/images/logo.png" alt="Logo Barber Blackywhite"></div>
+      </div>
+    </div>
+  </div>
+  <a href="#servicios" class="scroll-hint"><i class="bi bi-arrow-down"></i> DESCUBRE</a>
+</header>
+
+<section id="servicios" class="section-dark py-5">
+<div class="container py-5">
+  <div class="section-heading">
+    <div><p class="kicker">NUESTROS SERVICIOS</p><h2>PRECISIÓN EN<br>CADA DETALLE.</h2></div>
+    <p>Selecciona el servicio que mejor se adapta a tu estilo y reserva en pocos segundos.</p>
+  </div>
+  <div class="row g-3 mt-3" id="servicesGrid"></div>
+</div>
+</section>
+
+<section id="reservar" class="booking-section py-5">
+<div class="container py-5">
+  <div class="row g-5">
+    <div class="col-lg-5">
+      <p class="kicker">AGENDA TU VISITA</p>
+      <h2 class="display-title">TU PRÓXIMO<br>CORTE EMPIEZA<br>AQUÍ.</h2>
+      <p class="text-secondary fs-5">Elige tu servicio, barbero, fecha y horario. Tu solicitud se prepara para enviarse directamente por WhatsApp.</p>
+      <div class="booking-perks">
+        <span><i class="bi bi-check-circle-fill"></i> Selección de servicio</span>
+        <span><i class="bi bi-check-circle-fill"></i> Selección de barbero</span>
+        <span><i class="bi bi-check-circle-fill"></i> Fecha y horario</span>
+      </div>
+    </div>
+    <div class="col-lg-7">
+      <form id="bookingForm" class="booking-card">
+        <div class="booking-progress"><span class="active"></span><span></span><span></span></div>
+        <h3>Reserva tu cita</h3>
+        <div class="row g-3">
+          <div class="col-md-6"><label>Nombre completo</label><input class="form-control" id="clientName" required placeholder="Tu nombre"></div>
+          <div class="col-md-6"><label>Teléfono / WhatsApp</label><input class="form-control" id="clientPhone" required placeholder="Ej. 7866 3583"></div>
+          <div class="col-md-6"><label>Servicio</label><select class="form-select" id="serviceSelect" required></select></div>
+          <div class="col-md-6"><label>Barbero</label><select class="form-select" id="barberSelect" required></select></div>
+          <div class="col-md-6"><label>Fecha</label><input type="date" class="form-control" id="bookingDate" required></div>
+          <div class="col-md-6"><label>Hora disponible</label><select class="form-select" id="bookingTime" required></select></div>
+          <div class="col-12"><label>Mensaje adicional <span class="text-secondary">(opcional)</span></label><textarea class="form-control" id="bookingNote" rows="3" placeholder="Cuéntanos si tienes alguna preferencia..."></textarea></div>
+          <div class="col-12"><button class="btn btn-light btn-lg w-100" type="submit"><i class="bi bi-whatsapp me-2"></i>CONFIRMAR POR WHATSAPP</button></div>
+        </div>
+        <small class="text-secondary d-block mt-3">Los horarios se actualizan online y los horarios ocupados se bloquean automáticamente.</small>
+      </form>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="galeria" class="gallery-section py-5">
+<div class="container py-5">
+  <div class="section-heading"><div><p class="kicker">NUESTRO TRABAJO</p><h2>GALERÍA</h2></div><p>Próximamente agregaremos fotografías reales de los cortes y trabajos de Barber Blackywhite.</p></div>
+  <div class="gallery-grid">
+    <div class="gallery-placeholder tall"><span>01</span><strong>FADE</strong></div>
+    <div class="gallery-placeholder"><span>02</span><strong>DISEÑO</strong></div>
+    <div class="gallery-placeholder"><span>03</span><strong>CLÁSICO</strong></div>
+    <div class="gallery-placeholder wide"><span>04</span><strong>BLACK & WHITE STYLE</strong></div>
+  </div>
+</div>
+</section>
+
+<section id="nosotros" class="about-section py-5">
+<div class="container py-5">
+  <div class="row align-items-center g-5">
+    <div class="col-lg-5"><div class="about-logo"><img src="assets/images/logo.png" alt="Barber Blackywhite"></div></div>
+    <div class="col-lg-7">
+      <p class="kicker">BLACKYWHITE</p>
+      <h2 class="display-title">NUEVO ESTILO.<br>MEJOR EXPERIENCIA.</h2>
+      <p class="lead text-secondary">📍 PUERTO DE LA LIBERTAD. Te ofrecemos un servicio de cortes que se adaptan a tu estilo.</p>
+      <p class="text-secondary">Somos una barbería enfocada en cortes clásicos, modernos y personalizados con diseño. Cada visita está pensada para que encuentres un estilo que represente tu personalidad.</p>
+      <div class="social-row">
+        <a href="https://www.facebook.com/share/1DUH5M8Ubz/" target="_blank" rel="noopener noreferrer" title="Facebook"><i class="bi bi-facebook"></i></a>
+        <a href="https://www.instagram.com/blackywhitebarbershopsv?stkn=dDM4MTZ3aXpsZXc2" target="_blank" rel="noopener noreferrer" title="Instagram"><i class="bi bi-instagram"></i></a>
+        <a href="https://www.tiktok.com/@blacknwhitebarbershopsv?_r=1&_t=ZS-99dCSa9R9i4" target="_blank" rel="noopener noreferrer" title="TikTok"><i class="bi bi-tiktok"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="ubicacion" class="location-section py-5">
+<div class="container py-5">
+<div class="location-card">
+  <div><p class="kicker">VISÍTANOS</p><h2>PUERTO DE<br>LA LIBERTAD.</h2><p class="text-secondary">La Libertad, El Salvador</p><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d242.48549369946184!2d-89.32402990527733!3d13.48842433237046!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8f7cd39a36032015%3A0x92382a13414ce729!2sBlack%20%26%20White%20Barber%20Shop!5e0!3m2!1ses-419!2ssv!4v1789096537974!5m2!1ses-419!2ssv" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
+  <div class="location-info"><i class="bi bi-geo-alt-fill"></i><p>UBICACIÓN</p><strong>La Libertad, El Salvador</strong><hr><i class="bi bi-telephone-fill"></i><p>CONTACTO</p><strong>7866 3583</strong></div>
+</div>
+</div>
+</section>
+
+<footer>
+<div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+  <div>© <span id="year"></span> BARBER BLACKYWHITE · TODOS LOS DERECHOS RESERVADOS</div>
+  <a href="admin.html">PANEL ADMINISTRATIVO <i class="bi bi-box-arrow-up-right"></i></a>
+</div>
+</footer>
+<a href="https://wa.me/50378663583" target="_blank" class="whatsapp-float"><i class="bi bi-whatsapp"></i></a>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+<script src="js/app.js"></script>
+</body></html>

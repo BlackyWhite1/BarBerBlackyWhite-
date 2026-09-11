@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel | Barber Blackywhite</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css"><link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-body">
+
+<div id="loginScreen" class="admin-login">
+  <div class="login-card">
+    <img src="assets/images/logo.png" alt="Blackywhite">
+    <p class="eyebrow">BARBER BLACKYWHITE</p>
+    <h1>Panel administrativo</h1>
+    <p class="login-subtitle">Inicia sesión para administrar las reservas.</p>
+    <form id="loginForm">
+      <label>Correo electrónico</label>
+      <input id="loginEmail" type="email" class="form-control" autocomplete="username" required>
+      <label class="mt-3">Contraseña</label>
+      <input id="loginPassword" type="password" class="form-control" autocomplete="current-password" required>
+      <button class="btn btn-light w-100 mt-4" type="submit">Iniciar sesión</button>
+      <div id="loginMessage" class="login-message"></div>
+    </form>
+    <a href="index.html" class="back-public"><i class="bi bi-arrow-left"></i> Volver a la página pública</a>
+  </div>
+</div>
+
+<div id="appScreen" class="admin-layout d-none">
+<aside class="sidebar">
+  <div class="sidebar-brand"><img src="assets/images/logo.png" alt="Logo"><span>BLACKYWHITE<small>ADMIN PANEL</small></span></div>
+  <button class="nav-admin active" data-view="dashboard"><i class="bi bi-grid-1x2"></i> Dashboard</button>
+  <button class="nav-admin" data-view="appointments"><i class="bi bi-calendar-week"></i> Citas</button>
+  <button class="nav-admin" data-view="calendar"><i class="bi bi-calendar3"></i> Calendario</button>
+  <button class="nav-admin" data-view="clients"><i class="bi bi-people"></i> Clientes</button>
+  <button class="nav-admin" data-view="barbers"><i class="bi bi-person-badge"></i> Barberos</button>
+  <button class="nav-admin" data-view="services"><i class="bi bi-scissors"></i> Servicios</button>
+  <button class="nav-admin" data-view="gallery"><i class="bi bi-images"></i> Galería</button>
+  <div class="sidebar-bottom"><a href="index.html"><i class="bi bi-arrow-left"></i> Ver página pública</a><button id="logoutBtn" class="logout-btn"><i class="bi bi-box-arrow-right"></i> Cerrar sesión</button></div>
+</aside>
+<main class="admin-main">
+<header class="admin-header"><div><button class="mobile-menu btn btn-dark d-lg-none"><i class="bi bi-list"></i></button><p>BARBER BLACKYWHITE · CONTROL CENTER</p><h1 id="viewTitle">Dashboard</h1></div><div class="admin-user"><div><span id="adminEmail">Administrador</span><small id="lastUpdated">Sincronizando...</small></div><div id="avatarInitial" class="avatar">B</div></div></header>
+
+<section class="admin-view active" id="dashboard">
+<div class="stats-grid stats-primary">
+<div class="stat-card"><i class="bi bi-calendar-check"></i><span>Citas de hoy</span><strong id="statToday">0</strong></div>
+<div class="stat-card"><i class="bi bi-hourglass-split"></i><span>Pendientes</span><strong id="statPending">0</strong></div>
+<div class="stat-card"><i class="bi bi-check2-circle"></i><span>Confirmadas</span><strong id="statConfirmed">0</strong></div>
+<div class="stat-card"><i class="bi bi-cash-stack"></i><span>Ingresos de hoy</span><strong id="statRevenue">$0.00</strong></div>
+</div>
+<div class="dashboard-grid mt-4"><div class="panel-card"><div class="panel-title"><div><h3>Agenda próxima</h3><p>Reservas reales sincronizadas con Supabase.</p></div><button class="btn btn-outline-light btn-sm" id="refreshBtn"><i class="bi bi-arrow-clockwise"></i> Actualizar</button></div><div id="dashboardAppointments"></div></div><div class="panel-card"><div class="panel-title"><div><h3>Resumen del negocio</h3><p>Actividad acumulada.</p></div></div><div class="mini-stats"><div><span>Clientes</span><strong id="statClients">0</strong></div><div><span>Servicios activos</span><strong id="statServices">0</strong></div><div><span>Barberos activos</span><strong id="statBarbers">0</strong></div></div><div class="insight-title">Citas por barbero</div><div id="topBarbers"></div><div class="insight-title">Servicios más reservados</div><div id="topServices"></div></div></div>
+</section>
+
+<section class="admin-view" id="calendar">
+<div class="panel-card calendar-panel">
+  <div class="panel-title"><div><h3>Calendario de reservas</h3><p>Consulta tus citas por día, barbero y estado.</p></div><button class="btn btn-outline-light btn-sm" id="calendarToday"><i class="bi bi-calendar-check me-1"></i> Hoy</button></div>
+  <div class="calendar-toolbar"><button class="table-action" id="calendarPrev" title="Mes anterior"><i class="bi bi-chevron-left"></i></button><div><strong id="calendarMonth"></strong><small id="calendarSummary"></small></div><button class="table-action" id="calendarNext" title="Mes siguiente"><i class="bi bi-chevron-right"></i></button></div>
+  <div class="calendar-weekdays"><span>LUN</span><span>MAR</span><span>MIÉ</span><span>JUE</span><span>VIE</span><span>SÁB</span><span>DOM</span></div>
+  <div id="calendarGrid" class="calendar-grid"></div>
+  <div class="calendar-legend"><span><i class="dot pending"></i>Pendiente</span><span><i class="dot confirmed"></i>Confirmada</span><span><i class="dot completed"></i>Finalizada</span><span><i class="dot cancelled"></i>Cancelada</span></div>
+  <div class="calendar-day-panel"><div class="panel-title"><div><h3 id="calendarDayTitle">Citas del día</h3><p id="calendarDaySubtitle">Selecciona una fecha.</p></div></div><div id="calendarDayList"></div></div>
+</div></section>
+
+<section class="admin-view" id="appointments"><div class="panel-card"><div class="panel-title"><div><h3>Reservas</h3><p>Busca, filtra y administra cada cita.</p></div><button class="btn btn-outline-light btn-sm" id="refreshAppointments"><i class="bi bi-arrow-clockwise"></i></button></div><div class="appointment-filters"><input id="appointmentSearch" class="form-control" placeholder="Buscar cliente, teléfono o servicio..."><input id="appointmentDate" type="date" class="form-control"><select id="appointmentFilter" class="form-select"><option value="">Todos los barberos</option></select><select id="appointmentStatus" class="form-select"><option value="">Todos los estados</option><option value="pending">Pendientes</option><option value="confirmed">Confirmadas</option><option value="completed">Finalizadas</option><option value="cancelled">Canceladas</option></select></div><div id="appointmentsList"></div></div></section>
+
+<section class="admin-view" id="clients"><div class="panel-card"><div class="panel-title"><div><h3>Clientes</h3><p>Historial y contacto de clientes registrados.</p></div></div><div class="section-search"><i class="bi bi-search"></i><input id="clientSearch" placeholder="Buscar cliente, teléfono o correo..."></div><div id="clientsList" class="clients-grid"></div></div></section>
+
+<section class="admin-view" id="barbers"><div class="panel-card"><div class="panel-title"><div><h3>Equipo de barberos</h3><p>Administra disponibilidad y consulta rendimiento.</p></div><button class="btn btn-light btn-sm" id="newBarberBtn"><i class="bi bi-plus-lg"></i> Nuevo</button></div><div id="barbersList" class="barbers-grid"></div></div></section>
+
+<section class="admin-view" id="services"><div class="panel-card"><div class="panel-title"><div><h3>Servicios y precios</h3><p>Actualiza nombre, precio, duración y disponibilidad.</p></div><button class="btn btn-light btn-sm" id="newServiceBtn"><i class="bi bi-plus-lg"></i> Nuevo</button></div><div id="servicesList" class="services-admin-grid"></div></div></section>
+
+<section class="admin-view" id="gallery"><div class="panel-card"><div class="panel-title"><div><h3>Galería</h3><p>Espacio preparado para el material real de la barbería.</p></div></div><div class="gallery-admin"><div class="gallery-admin-item"><span>01</span><strong>FADE</strong><small>Agregar fotografía real</small></div><div class="gallery-admin-item"><span>02</span><strong>DISEÑO</strong><small>Agregar fotografía real</small></div><div class="gallery-admin-item"><span>03</span><strong>CLÁSICO</strong><small>Agregar fotografía real</small></div><div class="gallery-admin-item"><span>04</span><strong>BLACK & WHITE</strong><small>Agregar fotografía real</small></div></div><div class="gallery-note"><i class="bi bi-info-circle"></i><div><strong>Último paso visual</strong><p>Cuando tengas las fotos reales de cortes, local y los 4 barberos, las podemos integrar para sustituir estos espacios.</p></div></div></div></section>
+</main></div>
+
+<div class="modal fade" id="appModal" tabindex="-1"><div class="modal-dialog modal-dialog-centered"><div class="modal-content dark-modal"><div class="modal-header"><h5 id="modalTitle">Actualizar cita</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div><div class="modal-body" id="modalBody"></div></div></div></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+<script>
+/* LOGIN INDEPENDIENTE: no depende de Bootstrap ni de admin.js */
+(function(){
+  window.__independentLogin=true;
+  const form=document.getElementById('loginForm');
+  const email=document.getElementById('loginEmail');
+  const pass=document.getElementById('loginPassword');
+  const msg=document.getElementById('loginMessage');
+  if(!form) return;
+
+  function message(text,error){
+    if(msg){
+      msg.textContent=text;
+      msg.className='login-message'+(error?' error':'');
+      msg.style.display='block';
+    }
+  }
+
+  form.addEventListener('submit', async function(ev){
+    ev.preventDefault();
+    ev.stopImmediatePropagation();
+
+    const e=(email.value||'').trim();
+    const p=pass.value||'';
+    if(!e || !p){ message('Completa el correo y la contraseña.',true); return; }
+
+    message('Iniciando sesión...',false);
+
+    try{
+      if(typeof supabaseClient === 'undefined' || !supabaseClient || !supabaseClient.auth){
+        message('No se pudo cargar Supabase. Revisa js/supabase.js.',true);
+        return;
+      }
+
+      const result=await supabaseClient.auth.signInWithPassword({
+        email:e,
+        password:p
+      });
+
+      if(result.error){
+        console.error(result.error);
+        const raw=result.error.message||'Error de inicio de sesión.';
+        let text=raw;
+        if(/invalid login credentials/i.test(raw)) text='Correo o contraseña incorrectos.';
+        if(/email not confirmed/i.test(raw)) text='El correo no está confirmado en Supabase.';
+        message(text,true);
+        return;
+      }
+
+      if(!result.data || !result.data.session){
+        message('Supabase no devolvió una sesión. Revisa Authentication > Users.',true);
+        return;
+      }
+
+      message('Acceso correcto. Cargando panel...',false);
+
+      // admin.js se encargará de mostrar el panel mediante onAuthStateChange.
+      // Si ya está cargado, mostramos directamente.
+      if(typeof window.showApp==='function'){
+        await window.showApp(result.data.session);
+      }
+    }catch(err){
+      console.error(err);
+      message('Error de conexión con Supabase: '+(err.message||err),true);
+    }
+  }, true);
+})();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>
